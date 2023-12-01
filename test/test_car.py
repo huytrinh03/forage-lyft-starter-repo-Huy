@@ -1,9 +1,13 @@
 import unittest
 from datetime import datetime
 
-from serviceable.battery import nubbin_battery.NubbinBattery, spindler_battery.SpindlerBattery
-from serviceable.engine import capulet_engine.CapuletEngine, sternman_engine.SternmanEngine, willoughby_engine.WillouughbyEngine
-from serviceable.tire import carrigan_tire.CarriganTire, octoprime_tire.OctoprimeTire
+from battery.nubbin_battery import NubbinBattery
+from battery.spindler_battery import SpindlerBattery
+from engine.capulet_engine import CapuletEngine
+from engine.sternman_engine import SternmanEngine
+from engine.willoughby_engine import WilloughbyEngine
+from tire.carrigan_tire import CarriganTire
+from tire.octoprime_tire import OctoprimeTire
 
 class TestNubbinBattery(unittest.TestCase):
     def test_nubbin_should_be_serviced(self):
@@ -76,14 +80,14 @@ class TestWilloughbyEngine(unittest.TestCase):
         current_mileage = 60001
         last_service_mileage = 0
 
-        willoughby_engine = CapuletEngine(last_service_mileage, current_mileage)
+        willoughby_engine = WilloughbyEngine(last_service_mileage, current_mileage)
         self.assertTrue(willoughby_engine.needs_service())
 
     def test_willoughby_should_not_be_serviced(self):
         current_mileage = 60000
         last_service_mileage = 0
 
-        willoughby_engine = CapuletEngine(last_service_mileage, current_mileage)
+        willoughby_engine = WilloughbyEngine(last_service_mileage, current_mileage)
         self.assertFalse(willoughby_engine.needs_service())
 
 class TestCarriganTire(unittest.TestCase):
