@@ -1,7 +1,9 @@
 from abc import ABC
-from serviceable import Serviceable
 
-class CapuletEngine(Serviceable, ABC):
+from engine import Engine
+
+
+class CapuletEngine(Engine, ABC):
     last_service_mileage: int
     current_mileage: int
 

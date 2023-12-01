@@ -1,8 +1,9 @@
 from abc import ABC
-from serviceable import Serviceable
+
+from engine import Engine
 
 
-class SternmanEngine(Serviceable, ABC):
+class SternmanEngine(Engine, ABC):
     warning_light_on: bool
 
     def __init__(self, warning_light_on):

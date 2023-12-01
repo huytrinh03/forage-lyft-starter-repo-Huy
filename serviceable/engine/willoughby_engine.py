@@ -1,6 +1,7 @@
 from abc import ABC
-from serviceable import Serviceable
-class WilloughbyEngine(Serviceable, ABC):
+
+from engine import Engine
+class WilloughbyEngine(Engine, ABC):
     last_service_mileage: int
     current_mileage: int
 
