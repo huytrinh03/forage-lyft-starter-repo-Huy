@@ -1,8 +1,9 @@
 import unittest
 from datetime import datetime
 
-from serviceable.battery import NubbinBattery, SpindlerBattery
-from serviceable.engine import CapuletEngine, SternmanEngine, WillouughbyEngine
+from serviceable.battery import nubbin_battery.NubbinBattery, spindler_battery.SpindlerBattery
+from serviceable.engine import capulet_engine.CapuletEngine, sternman_engine.SternmanEngine, willoughby_engine.WillouughbyEngine
+from serviceable.tire import carrigan_tire.CarriganTire, octoprime_tire.OctoprimeTire
 
 class TestNubbinBattery(unittest.TestCase):
     def test_nubbin_should_be_serviced(self):
@@ -26,7 +27,7 @@ class TestNubbinBattery(unittest.TestCase):
 class TestSpindlerBattery(unittest.TestCase):
     def test_spindler_should_be_serviced(self):
         today = datetime.today().date()
-        last_service_date = today.replace(year=today.year - 3)
+        last_service_date = today.replace(year=today.year - 2)
         current_mileage = 0
         last_service_mileage = 0
 
@@ -40,7 +41,7 @@ class TestSpindlerBattery(unittest.TestCase):
         last_service_mileage = 0
 
         spindler_battery = SpindlerBattery(last_service_date)
-        self.assertTrue(spindler_battery.needs_service())
+        self.assertFalse(spindler_battery.needs_service())
 
 class TestCapuletEngine(unittest.TestCase):
     def test_capulet_should_be_serviced(self):
@@ -85,6 +86,31 @@ class TestWilloughbyEngine(unittest.TestCase):
         willoughby_engine = CapuletEngine(last_service_mileage, current_mileage)
         self.assertFalse(willoughby_engine.needs_service())
 
+class TestCarriganTire(unittest.TestCase):
+    def test_carrigan_should_be_serviced(self):
+        sensor_output = [0.1, 0.1, 0.1, 0.9]
+
+        carrigan_tire = CarriganTire(sensor_output)
+        self.assertTrue(carrigan_tire.needs_service())
+
+    def test_willoughby_should_not_be_serviced(self):
+        sensor_output = [0.1, 0.1, 0.1, 0.8]
+
+        carrigan_tire = CarriganTire(sensor_output)
+        self.assertFalse(carrigan_tire.needs_service())
+
+class TestOctoprimeTire(unittest.TestCase):
+    def test_octoprime_should_be_serviced(self):
+        sensor_output = [0.6, 0.7, 0.8, 0.9]
+
+        octoprime_tire = OctoprimeTire(sensor_output)
+        self.assertTrue(octoprime_tire.needs_service())
+
+    def test_octoprime_should_not_be_serviced(self):
+        sensor_output = [0.6, 0.7, 0.8, 0.8]
+
+        octoprime_tire = OctoprimeTire(sensor_output)
+        self.assertFalse(octoprime_tire.needs_service())
 
 if __name__ == '__main__':
     unittest.main()
